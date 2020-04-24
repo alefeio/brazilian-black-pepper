@@ -20,6 +20,8 @@ class BuscaController {
       ],
     });
 
+    console.log(produtos);
+
     return res.json(produtos);
   }
 }
