@@ -1,31 +1,57 @@
 import * as Yup from 'yup';
-import Contatoforms from '../models/Contatoforms';
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
-import ContatoMail from '../jobs/ContatoMail';
-import Queue from '../../lib/Queue';
+import Contatoforms from '../models/Contatoforms';
+import Mail from '../../lib/Mail';
+
+// import ContatoMail from '../jobs/ContatoMail';
+// import Queue from '../../lib/Queue';
 
 class ContatoformsController {
   async store(req, res) {
-    try {
-      const schema = Yup.object().shape({
-        nome: Yup.string().required(),
-        email: Yup.string().email().required(),
-      });
+    const schema = Yup.object().shape({
+      nome: Yup.string().required(),
+      email: Yup.string().email().required(),
+    });
 
-      if (!(await schema.isValid(req.body))) {
-        return res.status(400).json({ erro: 'Falha na validação!' });
-      }
-
-      const contato = await Contatoforms.create(req.body);
-
-      // await Queue.add(ContatoMail.key, contato);
-
-      return res.json(contato);
-    } catch (error) {
-      console.log(error);
-
-      return res.status(400).json({ erro: error });
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ erro: 'Falha na validação!' });
     }
+
+    const {
+      nome,
+      email,
+      telefone,
+      assunto,
+      mensagem,
+    } = await Contatoforms.create(req.body);
+
+    // await Queue.add(ContatoMail.key, contato);
+
+    await Mail.sendMail({
+      to: 'Alexandre Feio <alefeio@gmail.com>',
+      subject: 'Contato - Brazilian Black Pepper',
+      template: 'contato',
+      context: {
+        nome,
+        email,
+        telefone,
+        assunto,
+        mensagem,
+        date: format(new Date(), "'Dia' dd 'de' MMMM', às' H'h'mm", {
+          locale: pt,
+        }),
+      },
+    });
+
+    return res.json({
+      nome,
+      email,
+      telefone,
+      assunto,
+      mensagem,
+    });
   }
 }
 

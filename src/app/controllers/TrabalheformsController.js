@@ -1,8 +1,12 @@
 import * as Yup from 'yup';
-import Trabalheforms from '../models/Trabalheforms';
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
-import TrabalheMail from '../jobs/TrabalheMail';
-import Queue from '../../lib/Queue';
+import Trabalheforms from '../models/Trabalheforms';
+import Mail from '../../lib/Mail';
+
+// import TrabalheMail from '../jobs/TrabalheMail';
+// import Queue from '../../lib/Queue';
 
 class TrabalheformsController {
   async store(req, res) {
@@ -16,11 +20,33 @@ class TrabalheformsController {
       return res.status(400).json({ erro: 'Falha na validação!' });
     }
 
-    const trabalhe = await Trabalheforms.create(req.body);
+    const { nome, email, telefone, mensagem } = await Trabalheforms.create(
+      req.body
+    );
 
-    await Queue.add(TrabalheMail.key, trabalhe);
+    // await Queue.add(TrabalheMail.key, trabalhe);
 
-    return res.json(trabalhe);
+    await Mail.sendMail({
+      to: 'Alexandre Feio <alefeio@gmail.com>',
+      subject: 'Trabalhe com a Gente - Brazilian Black Pepper',
+      template: 'trabalhe',
+      context: {
+        nome,
+        email,
+        telefone,
+        mensagem,
+        date: format(new Date(), "'Dia' dd 'de' MMMM', às' H'h'mm", {
+          locale: pt,
+        }),
+      },
+    });
+
+    return res.json({
+      nome,
+      email,
+      telefone,
+      mensagem,
+    });
   }
 }
 
