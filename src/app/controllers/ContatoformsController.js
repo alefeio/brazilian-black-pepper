@@ -55,11 +55,11 @@ class ContatoformsController {
   }
 
   async index(req, res) {
-    if (!req.isAdmin) {
-      return res.status(401).json({ erro: 'Operação não autorizada!' });
-    }
+    // if (!req.isAdmin) {
+    //   return res.status(401).json({ erro: 'Operação não autorizada!' });
+    // }
 
-    const contatos = Contatoforms.findAll({
+    const contatos = await Contatoforms.findAll({
       attributes: [
         'nome',
         'email',

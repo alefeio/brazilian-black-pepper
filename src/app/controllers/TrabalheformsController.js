@@ -54,7 +54,7 @@ class TrabalheformsController {
       return res.status(401).json({ erro: 'Operação não autorizada!' });
     }
 
-    const trabalhe = Trabalheforms.findAll({
+    const trabalhe = await Trabalheforms.findAll({
       attributes: [
         'nome',
         'email',
