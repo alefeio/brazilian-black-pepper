@@ -48,6 +48,24 @@ class TrabalheformsController {
       mensagem,
     });
   }
+
+  async index(req, res) {
+    if (!req.isAdmin) {
+      return res.status(401).json({ erro: 'Operação não autorizada!' });
+    }
+
+    const trabalhe = Trabalheforms.findAll({
+      attributes: [
+        'nome',
+        'email',
+        'telefone',
+        'mensagem',
+        'created_at',
+      ],
+    });
+
+    return res.json(trabalhe);
+  }
 }
 
 export default new TrabalheformsController();

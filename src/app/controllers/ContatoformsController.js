@@ -59,7 +59,16 @@ class ContatoformsController {
       return res.status(401).json({ erro: 'Operação não autorizada!' });
     }
 
-    const contatos = Contatoforms.findAll();
+    const contatos = Contatoforms.findAll({
+      attributes: [
+        'nome',
+        'email',
+        'telefone',
+        'assunto',
+        'mensagem',
+        'created_at',
+      ],
+    });
 
     return res.json(contatos);
   }

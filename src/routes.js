@@ -38,6 +38,7 @@ routes.get('/pontos/:id', PontoController.detail);
 routes.use(authMiddleware);
 
 routes.get('/contato', ContatoformsController.index);
+routes.get('/trabalhe', TrabalheformsController.index);
 
 routes.get('/usuarios', UsuarioController.index);
 routes.put('/usuarios', UsuarioController.update);
