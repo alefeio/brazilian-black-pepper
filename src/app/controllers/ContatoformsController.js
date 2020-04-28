@@ -53,6 +53,16 @@ class ContatoformsController {
       mensagem,
     });
   }
+
+  async index(req, res) {
+    if (!req.isAdmin) {
+      return res.status(401).json({ erro: 'Operação não autorizada!' });
+    }
+
+    const contatos = Contatoforms.findAll();
+
+    return res.json(contatos);
+  }
 }
 
 export default new ContatoformsController();

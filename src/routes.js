@@ -37,6 +37,8 @@ routes.get('/pontos/:id', PontoController.detail);
 
 routes.use(authMiddleware);
 
+routes.get('/contato', ContatoformsController.index);
+
 routes.get('/usuarios', UsuarioController.index);
 routes.put('/usuarios', UsuarioController.update);
 routes.delete('/usuarios/:id', UsuarioController.delete);
