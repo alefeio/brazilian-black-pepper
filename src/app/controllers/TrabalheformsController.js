@@ -58,8 +58,6 @@ class TrabalheformsController {
       attributes: ['nome', 'email', 'telefone', 'mensagem', 'created_at'],
     });
 
-    console.log(`Form Trabalhe: ${trabalhe}`);
-
     return res.json(trabalhe);
   }
 }
