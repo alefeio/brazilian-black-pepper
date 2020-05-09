@@ -29,21 +29,21 @@ class ContatoformsController {
 
     // await Queue.add(ContatoMail.key, contato);
 
-    await Mail.sendMail({
-      to: 'Alexandre Feio <alefeio@gmail.com>',
-      subject: 'Contato - Brazilian Black Pepper',
-      template: 'contato',
-      context: {
-        nome,
-        email,
-        telefone,
-        assunto,
-        mensagem,
-        date: format(new Date(), "'Dia' dd 'de' MMMM', às' H'h'mm", {
-          locale: pt,
-        }),
-      },
-    });
+    // await Mail.sendMail({
+    //   to: 'Alexandre Feio <alefeio@gmail.com>',
+    //   subject: 'Contato - Brazilian Black Pepper',
+    //   template: 'contato',
+    //   context: {
+    //     nome,
+    //     email,
+    //     telefone,
+    //     assunto,
+    //     mensagem,
+    //     date: format(new Date(), "'Dia' dd 'de' MMMM', às' H'h'mm", {
+    //       locale: pt,
+    //     }),
+    //   },
+    // });
 
     return res.json({
       nome,

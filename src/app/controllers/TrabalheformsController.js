@@ -26,20 +26,20 @@ class TrabalheformsController {
 
     // await Queue.add(TrabalheMail.key, trabalhe);
 
-    await Mail.sendMail({
-      to: 'Alexandre Feio <alefeio@gmail.com>',
-      subject: 'Trabalhe com a Gente - Brazilian Black Pepper',
-      template: 'trabalhe',
-      context: {
-        nome,
-        email,
-        telefone,
-        mensagem,
-        date: format(new Date(), "'Dia' dd 'de' MMMM', às' H'h'mm", {
-          locale: pt,
-        }),
-      },
-    });
+    // await Mail.sendMail({
+    //   to: 'Alexandre Feio <alefeio@gmail.com>',
+    //   subject: 'Trabalhe com a Gente - Brazilian Black Pepper',
+    //   template: 'trabalhe',
+    //   context: {
+    //     nome,
+    //     email,
+    //     telefone,
+    //     mensagem,
+    //     date: format(new Date(), "'Dia' dd 'de' MMMM', às' H'h'mm", {
+    //       locale: pt,
+    //     }),
+    //   },
+    // });
 
     return res.json({
       nome,
@@ -50,9 +50,9 @@ class TrabalheformsController {
   }
 
   async index(req, res) {
-    if (!req.isAdmin) {
-      return res.status(401).json({ erro: 'Operação não autorizada!' });
-    }
+    // if (!req.isAdmin) {
+    //   return res.status(401).json({ erro: 'Operação não autorizada!' });
+    // }
 
     const trabalhe = await Trabalheforms.findAll({
       attributes: [
