@@ -55,14 +55,10 @@ class TrabalheformsController {
     // }
 
     const trabalhe = await Trabalheforms.findAll({
-      attributes: [
-        'nome',
-        'email',
-        'telefone',
-        'mensagem',
-        'created_at',
-      ],
+      attributes: ['nome', 'email', 'telefone', 'mensagem', 'created_at'],
     });
+
+    console.log(`Form Trabalhe: ${trabalhe}`);
 
     return res.json(trabalhe);
   }

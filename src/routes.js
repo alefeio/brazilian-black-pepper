@@ -35,6 +35,8 @@ routes.post('/trabalhe', TrabalheformsController.store);
 routes.get('/pontos', PontoController.index);
 routes.get('/pontos/:id', PontoController.detail);
 
+routes.get('/', (req, res) => res.send('ok'));
+
 routes.use(authMiddleware);
 
 routes.get('/contato', ContatoformsController.index);
